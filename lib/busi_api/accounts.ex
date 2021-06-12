@@ -8,6 +8,19 @@ defmodule BusiApi.Accounts do
 
   alias BusiApi.Accounts.User
 
+
+
+  def get_by_email(email) do
+    case Repo.get_by(User, email: email) do
+      nil ->
+        {:error, :not_found}
+      user ->
+        {:ok, user}
+    end
+  end
+
+
+
   @doc """
   Returns the list of users.
 
@@ -101,4 +114,5 @@ defmodule BusiApi.Accounts do
   def change_user(%User{} = user, attrs \\ %{}) do
     User.changeset(user, attrs)
   end
+
 end
